@@ -1,5 +1,6 @@
 ﻿using GraduationTracker.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GraduationTracker.Services
 {
@@ -8,6 +9,10 @@ namespace GraduationTracker.Services
         public virtual List<Student> All()
         {
             return DbSet.Students;
+        }
+        public virtual List<Student> All(int[] ids)
+        {
+            return DbSet.Students.FindAll(x=> ids.Contains(x.Id));
         }
         public virtual Student GetById(int id)
         {

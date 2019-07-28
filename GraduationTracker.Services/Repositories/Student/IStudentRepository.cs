@@ -6,6 +6,7 @@ namespace GraduationTracker.Services
     public interface IStudentRepository
     {
         List<Student> All();
+        List<Student> All(int[] ids);
         Student GetById(int id);
         void Add(Student entity);
         void Update(Student entity);

@@ -5,7 +5,7 @@ using System;
 
 namespace GraduationTracker
 {
-    public partial class GraduationTracker
+    public partial class GraduationTracker: IGraduationTracker
     {
         private IRequirementRepository RequirementRepository { get; set; }
         public GraduationTracker()
@@ -14,14 +14,14 @@ namespace GraduationTracker
         }
         public Tuple<bool, Standing> HasGraduated(Diploma diploma, Student student)
         {
-            var credits = 0;
+            int credits = 0;
             var average = 0;
 
             for (int i = 0; i < diploma.Requirements.Length; i++)
             {
                 for (int j = 0; j < student.Courses.Length; j++)
                 {
-                    var requirement = RequirementRepository.GetById(diploma.Requirements[i]);
+                    Requirement requirement = RequirementRepository.GetById(diploma.Requirements[i]);
 
                     for (int k = 0; k < requirement.Courses.Length; k++)
                     {
@@ -39,7 +39,7 @@ namespace GraduationTracker
 
             average /= student.Courses.Length;
 
-            Standing standing = IdentifyStanding(average);
+            Standing standing = GetStanding(average);
 
             switch (standing)
             {
@@ -51,12 +51,13 @@ namespace GraduationTracker
                     return new Tuple<bool, Standing>(true, standing);
                 case Standing.MagnaCumLaude:
                     return new Tuple<bool, Standing>(true, standing);
+
                 default:
                     return new Tuple<bool, Standing>(false, standing);
             }
         }
 
-        private static Standing IdentifyStanding(int average)
+        public Standing GetStanding(int average)
         {
             Standing standing;
             if (average < 50)
@@ -67,6 +68,7 @@ namespace GraduationTracker
                 standing = Standing.MagnaCumLaude;
             else
                 standing = Standing.MagnaCumLaude;
+
             return standing;
         }
     }
