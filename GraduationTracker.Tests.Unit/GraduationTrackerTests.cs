@@ -14,7 +14,6 @@ namespace GraduationTracker.Tests.Unit
         private IGraduationTracker GraduationTracker { get; set; }
         private IDiplomaRepository DiplomaRepository { get; set; }
         private IStudentRepository StudentRepository { get; set; }
-        private IRequirementRepository RequirementRepository { get; set; }
 
         [TestInitialize]
         public void Initialize()
@@ -22,7 +21,6 @@ namespace GraduationTracker.Tests.Unit
             GraduationTracker = new GraduationTracker();
             DiplomaRepository = new DiplomaRepository();
             StudentRepository = new StudentRepository();
-            RequirementRepository = new RequirementRepository();
         }
 
         [TestMethod]
